@@ -30,7 +30,7 @@ resource "google_gke_hub_feature_membership" "feature_member" {
       git {
         sync_repo   = "https://github.com/kkr16/gke-enterprise-demo.git"
         sync_branch = "main"
-        policy_dir  = "config"
+        policy_dir  = "config/rootsync"
         secret_type = "none"
       }
       source_format = "unstructured"
