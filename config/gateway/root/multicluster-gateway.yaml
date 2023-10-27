@@ -1,0 +1,21 @@
+kind: Gateway
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: mc-gateway
+  namespace: mc-gateway
+  annotations:
+    configmanagement.gke.io/cluster-selector: selector-mci-config  
+spec:
+  gatewayClassName: gke-l7-global-external-managed-mc
+  listeners:
+  - name: http
+    protocol: HTTP
+    port: 80
+    allowedRoutes:
+      kinds:
+      - kind: HTTPRoute
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
