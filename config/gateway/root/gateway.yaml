@@ -11,7 +11,7 @@ spec:
     protocol: HTTP
     allowedRoutes:
       namespaces:
-        from: Same
+        from: bookinfo
 # ---
 # apiVersion: gateway.networking.k8s.io/v1beta1
 # kind: HTTPRoute
