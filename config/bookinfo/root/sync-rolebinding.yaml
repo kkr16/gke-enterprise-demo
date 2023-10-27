@@ -5,7 +5,7 @@
    namespace: bookinfo
  subjects:
  - kind: ServiceAccount
-   name: reconciler-bookinfo-bookinfo-repo-13
+   name: ns-reconciler-bookinfo-bookinfo-repo-13
    namespace: config-management-system
  roleRef:
    kind: ClusterRole
