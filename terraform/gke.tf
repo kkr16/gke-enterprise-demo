@@ -12,7 +12,7 @@ resource "google_container_cluster" "cluster" {
 
   network    = google_compute_network.vpc_network.id
   subnetwork = google_compute_subnetwork.subnet[each.key].id
-  
+
   workload_identity_config {
     workload_pool = "${data.google_project.project.project_id}.svc.id.goog"
   }
