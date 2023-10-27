@@ -1,0 +1,83 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRestrictRoleBindings
+metadata: # kpt-merge: /cis-k8s-v1.5.1-restrict-clusteradmin-rolebindings
+  name: cis-k8s-v1.5.1-restrict-clusteradmin-rolebindings
+  labels:
+    policycontroller.gke.io/bundleName: cis-k8s-v1.5.1
+  annotations:
+    policycontroller.gke.io/bundleVersion: "202309.0"
+    policycontroller.gke.io/constraintData: |-
+      "{
+        bundleName: 'cis-k8s-v1.5.1',
+        bundleDisplayName: 'CIS Kubernetes Benchmark v1.5.1',
+        bundleLink: 'https://cloud.google.com/anthos-config-management/docs/how-to/using-cis-k8s-benchmark',
+        bundleVersion: '202309.0',
+        bundleDescription: 'Use the CIS Kubernetes Benchmark 1.5.1 policy bundle with Policy Controller to evaluate the compliance of your cluster resources against the CIS Kubernetes Benchmark, which is a set of recommendations for configuring Kubernetes to support a robust security posture.',
+        controlNumbers: '[5.1.1]',
+        severity: 'UNASSIGNED',
+        description: 'Restricts the use of the `cluster-admin` role.',
+        remediation: 'Cannot use the cluster-admin `ClusterRole` for Role-based access control (RBAC). Use a different role. See "Using RBAC Authorization" for more information: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles',
+        minimumTemplateLibraryVersion: '1.10.1'
+      }"
+    internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sRestrictRoleBindings|default|cis-k8s-v1.5.1-restrict-clusteradmin-rolebindings'
+spec:
+  enforcementAction: dryrun
+  match:
+    kinds:
+      - apiGroups:
+          - rbac.authorization.k8s.io
+        kinds:
+          - ClusterRoleBinding
+          - RoleBinding
+  parameters:
+    restrictedRole:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: cluster-admin
+    allowedSubjects:
+      - apiGroup: rbac.authorization.k8s.io
+        kind: Group
+        name: system:masters
+      # for GKE Hub feature authorizer
+      - apiGroup: rbac.authorization.k8s.io
+        kind: User
+        name: ^service-[0-9]+@gcp-sa-gkehub.iam.gserviceaccount.com$
+        regexMatch: true
+      # for ACM to install in-cluster resources
+      - apiGroup: rbac.authorization.k8s.io
+        kind: User
+        name: ^service-[0-9]+@gcp-sa-anthosconfigmanagement.iam.gserviceaccount.com$
+        regexMatch: true
+      # for Config Sync reconciler service account
+      - kind: ServiceAccount
+        name: reconciler-manager
+      # for Config Sync admission webhook
+      - kind: ServiceAccount
+        name: admission-webhook
+      # For kube-storage-version-migrator, part of the GKE control plane
+      - apiGroup: rbac.authorization.k8s.io
+        kind: User
+        name: system:storageversionmigrator
+      # Kubernetes service account for Config Sync reconciler
+      # https://cloud.google.com/anthos-config-management/docs/how-to/installing-config-sync#git-creds-secret
+      - kind: ServiceAccount
+        name: ^root-reconciler[a-z0-9-]*$
+        regexMatch: true
+      # for GKE Autopilot
+      - kind: ServiceAccount
+        name: system:gke-vpa-target-reader
+      - kind: ServiceAccount
+        name: serviceaccount-cluster-admin

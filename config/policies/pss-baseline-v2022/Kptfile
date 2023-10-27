@@ -1,0 +1,25 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: pss-baseline-v2022
+upstream:
+  type: git
+  git:
+    repo: https://github.com/GoogleCloudPlatform/acm-policy-controller-library
+    directory: /bundles/pss-baseline-v2022
+    ref: main
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/GoogleCloudPlatform/acm-policy-controller-library
+    directory: /bundles/pss-baseline-v2022
+    ref: main
+    commit: 3e48955dba5eace599fd3d586f14330b763b3930
+info:
+  description: Pod Security Standards Baseline v2022
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/set-enforcement-action:v0.1
+      configMap:
+        enforcementAction: dryrun

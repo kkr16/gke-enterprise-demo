@@ -1,0 +1,50 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPForbiddenSysctls
+metadata: # kpt-merge: /pss-baseline-v2022-sysctls
+  name: pss-baseline-v2022-sysctls
+  labels:
+    policycontroller.gke.io/bundleName: pss-baseline-v2022
+  annotations:
+    policycontroller.gke.io/bundleVersion: "202309.0"
+    policycontroller.gke.io/constraintData: |-
+      "{
+        bundleName: 'pss-baseline-v2022',
+        bundleDisplayName: 'Pod Security Standards Baseline v2022',
+        bundleLink: 'https://github.com/GoogleCloudPlatform/acm-policy-controller-library/tree/master/bundles/pss-baseline-v2022',
+        bundleVersion: '202309.0',
+        bundleDescription: 'Use the Pod Security Standards Baseline v2022 policy bundle with Policy Controller to achieve many of the Kubernetes Pod Security Standards Baseline policy protections.',
+        controlNumbers: '[]',
+        severity: 'UNASSIGNED',
+        description: 'Sysctls can disable security mechanisms or affect all containers on a host, and are restricted except for an allowed "safe" subset. A sysctl is safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node. https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline',
+        remediation: 'Containers can set only sysctls listed in the `allowedSysctls` field. Drop any unlisted sysctls from your containers: https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/',
+        minimumTemplateLibraryVersion: '1.14.1'
+      }"
+    internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPForbiddenSysctls|default|pss-baseline-v2022-sysctls'
+spec:
+  enforcementAction: dryrun
+  match:
+    kinds:
+      - apiGroups:
+          - ""
+        kinds:
+          - Pod
+  parameters:
+    allowedSysctls:
+      - kernel.shm_rmid_forced
+      - net.ipv4.ip_local_port_range
+      - net.ipv4.ip_unprivileged_port_start
+      - net.ipv4.tcp_syncookies
+      - net.ipv4.ping_group_range
