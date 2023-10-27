@@ -19,3 +19,7 @@ variable "regions" {
     master_ipv4_cidr_block = string
   }))
 }
+
+variable mci_config_cluster {
+  type = string
+}

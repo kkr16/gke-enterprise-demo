@@ -67,3 +67,13 @@ resource "google_gke_hub_feature" "mcs_feature" {
   name = "multiclusterservicediscovery"
   location = "global"
 }
+
+resource "google_gke_hub_feature" "mci_feature" {
+  name = "multiclusteringress"
+  location = "global"
+  spec {
+    multiclusteringress {
+      config_membership = google_gke_hub_membership.membership[var.mci_config_cluster].id
+    }
+  }
+}

@@ -18,6 +18,7 @@ resource "google_container_cluster" "cluster" {
   }
   resource_labels = {
     mesh_id = "proj-${data.google_project.project.number}"
+    mci_config = var.mci_config_cluster == each.key ? true : false
   }
   node_config {
     shielded_instance_config {
