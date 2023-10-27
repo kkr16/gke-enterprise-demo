@@ -30,6 +30,9 @@ resource "google_container_cluster" "cluster" {
     enable_private_nodes   = true
     master_ipv4_cidr_block = each.value.master_ipv4_cidr_block
   }
+  gateway_api_config {
+    channel = "CHANNEL_STANDARD"
+  }
 }
 
 resource "google_container_node_pool" "primary_node_pool" {
