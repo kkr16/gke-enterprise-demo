@@ -14,7 +14,7 @@ metadata:
 spec:
   parentRefs:
   - name: mc-gateway
-    namespace: gateway
+    namespace: mc-gateway
   rules:
   - matches:
     - path:
