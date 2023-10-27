@@ -34,6 +34,11 @@ resource "google_container_cluster" "cluster" {
   gateway_api_config {
     channel = "CHANNEL_STANDARD"
   }
+  addons_config {
+    config_connector_config {
+      enabled = true
+    }
+  }
 }
 
 resource "google_container_node_pool" "primary_node_pool" {

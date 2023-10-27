@@ -32,3 +32,22 @@ resource "google_compute_router_nat" "nat" {
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
+
+resource "google_compute_global_address" "global_ip" {
+  name = "mcg-global-ip"
+}
+
+data "google_dns_managed_zone" "env_dns_zone" {
+  name = "gkee"
+}
+
+resource "google_dns_record_set" "dns" {
+  name = "bookinfo.${data.google_dns_managed_zone.env_dns_zone.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = data.google_dns_managed_zone.env_dns_zone.name
+
+  rrdatas = [google_compute_global_address.global_ip.address]
+}
+
