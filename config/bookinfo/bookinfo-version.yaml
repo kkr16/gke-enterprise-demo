@@ -75,4 +75,3 @@ spec:
   selector:
     app: details
     version: v1
----
