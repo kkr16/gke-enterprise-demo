@@ -1,7 +1,7 @@
 apiVersion: configsync.gke.io/v1beta1
 kind: RepoSync
 metadata:
-  name: repo-sync
+  name: bookinfo
   namespace: bookinfo
 spec:
   sourceType: git
