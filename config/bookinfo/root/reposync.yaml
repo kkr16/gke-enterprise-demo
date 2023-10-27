@@ -1,14 +1,14 @@
-apiVersion: configsync.gke.io/v1beta1
-kind: RepoSync
-metadata:
-  name: bookinfo
-  namespace: bookinfo
-spec:
-  sourceType: git
-  sourceFormat: unstructured
-  git:
-    repo: https://github.com/kkr16/gke-enterprise-demo.git
-    branch: main
-    dir: config/bookinfo/repo
-    auth: none
-    period: 30s
+# apiVersion: configsync.gke.io/v1beta1
+# kind: RepoSync
+# metadata:
+#   name: bookinfo
+#   namespace: bookinfo
+# spec:
+#   sourceType: git
+#   sourceFormat: unstructured
+#   git:
+#     repo: https://github.com/kkr16/gke-enterprise-demo.git
+#     branch: main
+#     dir: config/bookinfo/repo
+#     auth: none
+#     period: 30s
