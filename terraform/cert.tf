@@ -1,6 +1,6 @@
 resource "google_certificate_manager_certificate" "default" {
   name        = "bookinfo-cert"
-  scope       = "ALL_REGIONS"
+  scope       = "DEFAULT"
   managed {
     domains = [
       google_certificate_manager_dns_authorization.bookinfo.domain,
@@ -29,4 +29,13 @@ resource "google_dns_record_set" "managed_cert_record" {
   rrdatas = [google_certificate_manager_dns_authorization.bookinfo.dns_resource_record.0.data]
 }
 
+resource "google_certificate_manager_certificate_map" "bookinfo_certmap" {
+  name        = "bookinfo-certmap"
+}
 
+resource "google_certificate_manager_certificate_map_entry" "bookinfo_entry" {
+  name        = "bookinfo-mapentry"
+  map = google_certificate_manager_certificate_map.bookinfo_certmap.name 
+  certificates = [google_certificate_manager_certificate.default.id]
+  matcher = "PRIMARY"
+}
