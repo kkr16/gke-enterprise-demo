@@ -12,11 +12,11 @@ spec:
   addresses:
   - type: NamedAddress
     value: mcg-global-ip    
-    allowedRoutes:
-      kinds:
-      - kind: HTTPRoute
-      namespaces:
-        from: Selector
-        selector:
-          matchLabels:
-            shared-gateway-access: "true"
+  allowedRoutes:
+    kinds:
+    - kind: HTTPRoute
+    namespaces:
+      from: Selector
+      selector:
+        matchLabels:
+          shared-gateway-access: "true"
