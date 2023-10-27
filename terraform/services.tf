@@ -14,7 +14,8 @@ resource "google_project_service" "service" {
     "anthosconfigmanagement.googleapis.com",
     "multiclusterservicediscovery.googleapis.com",
     "meshconfig.googleapis.com",
-    "anthos.googleapis.com"
+    "anthos.googleapis.com",
+    "mesh.googleapis.com"
   ])
   service = each.value
 }
