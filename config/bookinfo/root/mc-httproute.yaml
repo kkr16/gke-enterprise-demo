@@ -3,6 +3,8 @@ apiVersion: gateway.networking.k8s.io/v1beta1
 metadata:
   name: mc-httproute
   namespace: bookinfo
+  annotations:
+    configsync.gke.io/cluster-name-selector: montreal #todo: make this a var
 spec:
   parentRefs:
   - name: mc-gateway
