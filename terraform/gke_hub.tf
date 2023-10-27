@@ -33,6 +33,7 @@ resource "google_gke_hub_feature_membership" "feature_member" {
         policy_dir  = "config"
         secret_type = "none"
       }
+      source_format = "unstructured"
     }
     policy_controller {
       enabled                    = true
