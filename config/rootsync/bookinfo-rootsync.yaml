@@ -9,6 +9,6 @@ spec:
   git:
     repo: https://github.com/kkr16/gke-enterprise-demo.git
     branch: main
-    dir: config/bookinfo
+    dir: config/bookinfo/root
     auth: none
     period: 30s
