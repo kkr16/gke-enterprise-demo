@@ -270,6 +270,12 @@ spec:
   selector:
     app: productpage
 ---
+kind: ServiceExport
+apiVersion: net.gke.io/v1
+metadata:
+  name: productpage
+  namespace: bookinfo
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
