@@ -1,0 +1,19 @@
+project_id = "your-project-id"
+
+regions = {
+  northamerica-northeast1 = {
+    region_name            = "montreal"
+    subnet_cidr            = "10.128.0.0/16"
+    master_ipv4_cidr_block = "172.16.0.0/28"
+  },
+  northamerica-northeast2 = {
+    region_name            = "toronto"
+    subnet_cidr            = "10.129.0.0/16"
+    master_ipv4_cidr_block = "172.16.0.16/28"
+  },
+  # us-central1 = {
+  #   region_name            = "iowa"
+  #   subnet_cidr            = "10.130.0.0/16"
+  #   master_ipv4_cidr_block = "172.16.0.32/28"
+  # }
+}
