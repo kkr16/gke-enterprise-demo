@@ -26,8 +26,13 @@ resource "google_gke_hub_feature_membership" "feature_member" {
   feature    = google_gke_hub_feature.acm.name
   membership = each.value.membership_id
   configmanagement {
-    version = "1.16.2"
     config_sync {
+      git {
+        sync_repo   = "https://github.com/kkr16/gke-enterprise-demo.git"
+        sync_branch = "main"
+        policy_dir  = "config"
+        secret_type = "none"
+      }
     }
     policy_controller {
       enabled                    = true
