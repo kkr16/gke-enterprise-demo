@@ -7,4 +7,5 @@
 ```cp terraform.tfvars.example terraform.tfvars```
 5. Edit terraform.tfvars and update `project_id` variable with your project id
 6. Run `terraform -chdir=./terraform init`
-6. Run `terraform -chdir=./terraform apply` and confirm
+7. Run `terraform -chdir=./terraform apply`
+8. Review the plan, then type `yes` to execute
