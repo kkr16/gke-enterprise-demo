@@ -3,3 +3,9 @@ resource "google_project_iam_member" "default_sa" {
   role    = "roles/owner"
   member  = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
 }
+
+resource "google_project_iam_member" "mesh_serviceagent" {
+  project = var.project_id
+  role    = "roles/anthosservicemesh.serviceAgent"
+  member  = "serviceAccount:serviceAccount:service-${data.google_project.project.number}@gcp-sa-servicemesh.iam.gserviceaccount.com"
+}
