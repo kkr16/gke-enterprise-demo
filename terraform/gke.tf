@@ -12,7 +12,13 @@ resource "google_container_cluster" "cluster" {
 
   network    = google_compute_network.vpc_network.id
   subnetwork = google_compute_subnetwork.subnet[each.key].id
-
+  
+  workload_identity_config {
+    workload_pool = "${data.google_project.project.project_id}.svc.id.goog"
+  }
+  resource_labels = {
+    mesh_id = "proj-${data.google_project.project.number}"
+  }
   node_config {
     shielded_instance_config {
       enable_secure_boot          = true

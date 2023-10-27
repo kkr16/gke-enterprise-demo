@@ -44,3 +44,22 @@ resource "google_gke_hub_feature_membership" "feature_member" {
 
 }
 
+resource "google_gke_hub_feature" "mesh" {
+  name     = "servicemesh"
+  location = "global"
+
+  provider = google-beta
+}
+
+resource "google_gke_hub_feature_membership" "mesh_feature_member" {
+  for_each = google_gke_hub_membership.membership
+
+  location   = "global"
+  feature    = google_gke_hub_feature.mesh.name
+  membership = each.value.membership_id
+  mesh {
+    management = "MANAGEMENT_AUTOMATIC"
+  }
+  provider = google-beta
+}
+
