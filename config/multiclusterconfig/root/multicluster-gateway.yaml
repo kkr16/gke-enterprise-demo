@@ -11,6 +11,14 @@ spec:
   - type: NamedAddress
     value: mcg-global-ip    
   listeners:
+  - name: http
+    protocol: HTTP
+    port: 80
+    allowedRoutes:
+      kinds:
+      - kind: HTTPRoute
+      namespaces:
+        from: Same
   - name: https
     protocol: HTTPS
     port: 443
