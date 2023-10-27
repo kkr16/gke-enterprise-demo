@@ -5,4 +5,4 @@ metadata:
 spec:
   selector:
     matchLabels:
-      mci_config: true
+      mci_config: "true"
