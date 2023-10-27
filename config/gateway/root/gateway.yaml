@@ -11,7 +11,10 @@ spec:
     protocol: HTTP
     allowedRoutes:
       namespaces:
-        from: bookinfo
+        from: Selector
+        selector:
+          matchLabels:
+            shared-gateway-access: "true"
 # ---
 # apiVersion: gateway.networking.k8s.io/v1beta1
 # kind: HTTPRoute

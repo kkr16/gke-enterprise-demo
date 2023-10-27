@@ -4,3 +4,4 @@ metadata:
   name: bookinfo
   labels:
     istio-injection: enabled
+    shared-gateway-access: "true"
