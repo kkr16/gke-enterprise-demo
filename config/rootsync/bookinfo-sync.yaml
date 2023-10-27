@@ -1,8 +1,8 @@
 apiVersion: configsync.gke.io/v1beta1
-kind: RepoSync
+kind: RootSync
 metadata:
-  name: bookinfo
-  namespace: bookinfo
+  name: bookinfo-root
+  namespace: config-management-system
 spec:
   sourceType: git
   sourceFormat: unstructured
