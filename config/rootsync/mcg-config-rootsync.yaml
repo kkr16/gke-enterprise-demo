@@ -1,7 +1,7 @@
 apiVersion: configsync.gke.io/v1beta1
 kind: RootSync
 metadata:
-  name: gateway-root
+  name: mcgateway-root
   namespace: config-management-system
   annotations:
     configsync.gke.io/cluster-name-selector: montreal #todo: make this a var
