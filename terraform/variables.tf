@@ -23,3 +23,7 @@ variable "regions" {
 variable mci_config_cluster {
   type = string
 }
+
+variable fqdn_suffix {
+  type = string
+}
