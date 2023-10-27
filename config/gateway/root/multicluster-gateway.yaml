@@ -4,7 +4,7 @@ metadata:
   name: mc-gateway
   namespace: mc-gateway
   annotations:
-    configsync.gke.io/cluster-name-selector: montreal
+    configsync.gke.io/cluster-name-selector: montreal #todo: make this a var
 spec:
   gatewayClassName: gke-l7-global-external-managed-mc
   listeners:
