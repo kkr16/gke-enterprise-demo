@@ -63,3 +63,7 @@ resource "google_gke_hub_feature_membership" "mesh_feature_member" {
   provider = google-beta
 }
 
+resource "google_gke_hub_feature" "mcs_feature" {
+  name = "multiclusterservicediscovery"
+  location = "global"
+}
