@@ -17,6 +17,14 @@
 gcloud container clusters get-credentials montreal --region=northamerica-northeast1 --project=$PROJECT_ID
 gcloud container clusters get-credentials toronto --region=northamerica-northeast2 --project=$PROJECT_ID
 ```
-
+Rename the contexts:
+```
 kubectl config rename-context gke_${PROJECT_ID}_northamerica-northeast1_montreal montreal
 kubectl config rename-context gke_${PROJECT_ID}_northamerica-northeast2_toronto toronto
+```
+
+Bookinfo was deployed before ASM, so sidecar was not injected. Restart the deployments in both clusters:
+```
+kubectl rollout restart deployment -n bookinfo --context toronto
+kubectl rollout restart deployment -n bookinfo --context montreal
+```

@@ -34,11 +34,12 @@ resource "google_compute_router_nat" "nat" {
 }
 
 resource "google_compute_global_address" "global_ip" {
-  name = "mcg-global-ip"
+  name       = "mcg-global-ip"
+  depends_on = [google_project_service.service["compute.googleapis.com"]]
 }
 
 data "google_dns_managed_zone" "env_dns_zone" {
-  name = "gkee"
+  name = "demo"
 }
 
 resource "google_dns_record_set" "dns" {

@@ -7,17 +7,21 @@ resource "google_gke_hub_feature" "acm" {
 
 resource "google_gke_hub_fleet" "default" {
   project = var.project_id
+
+  depends_on = [google_project_service.service["gkehub.googleapis.com"]]
 }
 
 resource "google_gke_hub_membership" "membership" {
-  for_each      = var.regions
-  membership_id = each.value.region_name
+  for_each      = google_container_cluster.cluster
+  membership_id = each.value.name
   location      = "global"
   endpoint {
     gke_cluster {
       resource_link = "//container.googleapis.com/${google_container_cluster.cluster[each.key].id}"
     }
   }
+  depends_on = [google_gke_hub_fleet.default,
+  google_container_cluster.cluster]
 }
 
 resource "google_gke_hub_feature_membership" "feature_member" {
@@ -41,7 +45,7 @@ resource "google_gke_hub_feature_membership" "feature_member" {
       referential_rules_enabled  = true
     }
   }
-
+depends_on = [ google_container_cluster.cluster ]
 }
 
 resource "google_gke_hub_feature" "mesh" {
@@ -49,6 +53,11 @@ resource "google_gke_hub_feature" "mesh" {
   location = "global"
 
   provider = google-beta
+
+  depends_on = [google_project_service.service,
+    google_gke_hub_membership.membership
+  ]
+
 }
 
 resource "google_gke_hub_feature_membership" "mesh_feature_member" {
@@ -61,19 +70,25 @@ resource "google_gke_hub_feature_membership" "mesh_feature_member" {
     management = "MANAGEMENT_AUTOMATIC"
   }
   provider = google-beta
+
+  depends_on = [google_gke_hub_feature.mesh]
 }
 
 resource "google_gke_hub_feature" "mcs_feature" {
-  name = "multiclusterservicediscovery"
-  location = "global"
+  name       = "multiclusterservicediscovery"
+  location   = "global"
+  depends_on = [google_project_service.service]
 }
 
 resource "google_gke_hub_feature" "mci_feature" {
-  name = "multiclusteringress"
+  count    = length(var.regions) > 0 ? 1 : 0
+  name     = "multiclusteringress"
   location = "global"
   spec {
     multiclusteringress {
       config_membership = google_gke_hub_membership.membership[var.mci_config_cluster].id
     }
   }
+  depends_on = [google_gke_hub_feature_membership.feature_member,
+  google_project_service.service]
 }
