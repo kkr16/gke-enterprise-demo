@@ -34,7 +34,7 @@ metadata: # kpt-merge: /psp-v2022-psp-forbidden-sysctls
     policycontroller.gke.io/bundleVersion: "202310.0"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPForbiddenSysctls|default|psp-v2022-psp-forbidden-sysctls'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     kinds:
       - apiGroups:

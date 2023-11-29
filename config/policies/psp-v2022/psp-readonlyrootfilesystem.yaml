@@ -34,7 +34,7 @@ metadata: # kpt-merge: /psp-v2022-psp-readonlyrootfilesystem
     policycontroller.gke.io/bundleVersion: "202310.0"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPReadOnlyRootFilesystem|default|psp-v2022-psp-readonlyrootfilesystem'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     kinds:
       - apiGroups:

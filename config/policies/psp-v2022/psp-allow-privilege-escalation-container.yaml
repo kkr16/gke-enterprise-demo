@@ -34,7 +34,7 @@ metadata: # kpt-merge: /psp-v2022-psp-allow-privilege-escalation
       }"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPAllowPrivilegeEscalationContainer|default|psp-v2022-psp-allow-privilege-escalation'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     kinds:
     - apiGroups:
