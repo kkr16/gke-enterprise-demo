@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "gke-demo-d057_tfstate"
+    bucket = "gke-demo-0955_tfstate"
   }
 }
 

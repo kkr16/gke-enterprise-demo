@@ -5,7 +5,8 @@ resource "google_project_iam_member" "default_sa" {
   depends_on = [google_project_service.service["compute.googleapis.com"]]
 }
 
-resource "time_sleep" "wait_30_seconds" {
+
+resource "time_sleep" "wait" {
   depends_on = [
     google_gke_hub_feature.mesh,
     google_project_service.service,
@@ -13,7 +14,7 @@ resource "time_sleep" "wait_30_seconds" {
     google_gke_hub_feature_membership.mesh_feature_member
   ]
 
-  create_duration = "30s"
+  create_duration = "2m"
 }
 
 
@@ -22,7 +23,7 @@ resource "google_project_iam_member" "mesh_serviceagent" {
   role    = "roles/anthosservicemesh.serviceAgent"
   member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-servicemesh.iam.gserviceaccount.com"
 
-  depends_on = [ time_sleep.wait_30_seconds ]
+  depends_on = [ time_sleep.wait ]
 }
 
 resource "google_project_iam_member" "mci_serviceagent" {

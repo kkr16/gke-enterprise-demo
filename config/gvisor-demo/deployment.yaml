@@ -1,0 +1,22 @@
+# httpd.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: gvisor-untrusted
+  name: httpd
+  labels:
+    app: httpd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      runtimeClassName: gvisor
+      containers:
+      - name: httpd
+        image: httpd
