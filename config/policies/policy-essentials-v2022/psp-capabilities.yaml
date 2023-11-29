@@ -34,7 +34,7 @@ metadata: # kpt-merge: /policy-essentials-v2022-psp-capabilities
       }"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPCapabilities|default|policy-essentials-v2022-psp-capabilities'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     kinds:
     - apiGroups:

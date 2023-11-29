@@ -34,7 +34,7 @@ metadata: # kpt-merge: /policy-essentials-v2022-prohibit-role-wildcard-access
       }"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sProhibitRoleWildcardAccess|default|policy-essentials-v2022-prohibit-role-wildcard-access'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     excludedNamespaces:
       - gke-connect

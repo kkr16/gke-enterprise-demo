@@ -34,7 +34,7 @@ metadata: # kpt-merge: /policy-essentials-v2022-psp-privileged-container
       }"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPPrivilegedContainer|default|policy-essentials-v2022-psp-privileged-container'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     kinds:
     - apiGroups:

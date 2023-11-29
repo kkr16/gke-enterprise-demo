@@ -34,7 +34,7 @@ metadata: # kpt-merge: /policy-essentials-v2022-psp-host-namespace
       }"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPHostNamespace|default|policy-essentials-v2022-psp-host-namespace'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     kinds:
     - apiGroups:

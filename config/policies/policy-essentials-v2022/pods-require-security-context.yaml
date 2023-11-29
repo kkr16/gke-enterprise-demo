@@ -34,7 +34,7 @@ metadata: # kpt-merge: /policy-essentials-v2022-pods-require-security-context
       }"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPodsRequireSecurityContext|default|policy-essentials-v2022-pods-require-security-context'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     excludedNamespaces:
       - kube-system

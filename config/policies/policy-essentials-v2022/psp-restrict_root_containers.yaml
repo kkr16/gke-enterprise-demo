@@ -34,7 +34,7 @@ metadata: # kpt-merge: /policy-essentials-v2022-psp-pods-must-run-as-nonroot
       }"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPAllowedUsers|default|policy-essentials-v2022-psp-pods-must-run-as-nonroot'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     kinds:
     - apiGroups:

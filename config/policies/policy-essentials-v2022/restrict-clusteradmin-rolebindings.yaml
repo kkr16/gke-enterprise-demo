@@ -34,7 +34,7 @@ metadata: # kpt-merge: /policy-essentials-v2022-restrict-clusteradmin-rolebindin
       }"
     internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sRestrictRoleBindings|default|policy-essentials-v2022-restrict-clusteradmin-rolebindings'
 spec:
-  enforcementAction: dryrun
+  enforcementAction: warn
   match:
     kinds:
       - apiGroups:
