@@ -1,0 +1,60 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPSeccomp
+metadata: # kpt-merge: /psp-v2022-psp-seccomp
+  name: psp-v2022-psp-seccomp
+  labels:
+    policycontroller.gke.io/bundleName: psp-v2022
+  annotations:
+    policycontroller.gke.io/bundleVersion: "202310.0"
+    policycontroller.gke.io/constraintData: |-
+      "{
+        bundleName: 'psp-v2022',
+        bundleDisplayName: 'Pod Security Policies v2022',
+        bundleLink: 'https://github.com/GoogleCloudPlatform/acm-policy-controller-library/tree/master/bundles/psp-v2022',
+        bundleVersion: '202310.0',
+        bundleDescription: 'Use the Pod Security Policies (PSP) v2022 policy bundle with Policy Controller to implement the Kubernetes Pod Security Policies.',
+        controlNumbers: '[]',
+        severity: 'UNSPECIFIED',
+        description: 'Controls the seccomp profile used by containers. Corresponds to the `seccomp.security.alpha.kubernetes.io/allowedProfileNames` annotation on a PodSecurityPolicy.',
+        remediation: 'Containers cannot run with a `seccomp` profile other than those listed in `allowedProfiles`. Remove or set `seccomp` to a value listed in `allowedProfiles`. See "Set the Seccomp Profile for a Container" for more information: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-seccomp-profile-for-a-container',
+        minimumTemplateLibraryVersion: '1.11.1'
+      }"
+    internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPSeccomp|default|psp-v2022-psp-seccomp'
+spec:
+  enforcementAction: dryrun
+  match:
+    kinds:
+    - apiGroups:
+      - ""
+      kinds:
+      - Pod
+    excludedNamespaces:
+    - kube-system
+    - gatekeeper-system
+    - config-management-monitoring
+    - config-management-system
+    - asm-system
+    - resource-group-system
+    - istio-system
+    - gke-connect
+  # K8sPSPSeccomp documentation and parameters:
+  # https://cloud.google.com/anthos-config-management/docs/latest/reference/constraint-template-library#k8spspseccomp
+  parameters:
+    allowedProfiles:
+    - '*'
+    exemptImages:
+    - gcr.io/gke-release/asm/proxyv2:*
+    - gcr.io/anthos-baremetal-release/*

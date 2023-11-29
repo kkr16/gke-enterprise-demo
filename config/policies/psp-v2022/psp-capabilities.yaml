@@ -1,0 +1,78 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPCapabilities
+metadata: # kpt-merge: /psp-v2022-psp-capabilities
+  name: psp-v2022-psp-capabilities
+  labels:
+    policycontroller.gke.io/bundleName: psp-v2022
+  annotations:
+    policycontroller.gke.io/constraintData: |
+      "{
+        bundleName: 'psp-v2022',
+        bundleDisplayName: 'Pod Security Policies v2022',
+        bundleLink: 'https://github.com/GoogleCloudPlatform/acm-policy-controller-library/tree/master/bundles/psp-v2022',
+        bundleVersion: '202310.0',
+        bundleDescription: 'Use the Pod Security Policies (PSP) v2022 policy bundle with Policy Controller to implement the Kubernetes Pod Security Policies.',
+        controlNumbers: '[]',
+        severity: 'UNSPECIFIED',
+        description: 'Controls Linux capabilities on containers. Corresponds to the `allowedCapabilities` and `requiredDropCapabilities` fields in a PodSecurityPolicy.',
+        remediation: 'Containers cannot run with capabilities listed in the `requiredDropCapabilities` field. Drop the listed capabilities or customize the field. See “Set capabilities for a Container” for more information: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container',
+        minimumTemplateLibraryVersion: '1.10.2'
+      }"
+    policycontroller.gke.io/bundleVersion: "202310.0"
+    internal.kpt.dev/upstream-identifier: 'constraints.gatekeeper.sh|K8sPSPCapabilities|default|psp-v2022-psp-capabilities'
+spec:
+  enforcementAction: dryrun
+  match:
+    kinds:
+    - apiGroups:
+      - ""
+      kinds:
+      - Pod
+    excludedNamespaces:
+    - kube-system
+    - config-management-system
+    - config-management-monitoring
+    - resource-group-system
+    - asm-system
+    - gke-connect
+    - cert-manager
+  # K8sPSPCapabilities documentation and parameters:
+  # https://cloud.google.com/anthos-config-management/docs/latest/reference/constraint-template-library#k8spspcapabilities
+  parameters:
+    exemptImages:
+    - gcr.io/gke-release/*
+    - gcr.io/config-management-release/*
+    - gcr.io/kubebuilder/*
+    - gcr.io/anthos-baremetal-release/*
+    - gcr.io/gke-on-prem-release/*
+    - gcr.io/gke-multi-cloud-release/*
+    - gke.gcr.io/*
+    allowedCapabilities:
+    - AUDIT_WRITE
+    - CHOWN
+    - DAC_OVERRIDE
+    - FOWNER
+    - FSETID
+    - KILL
+    - MKNOD
+    - NET_BIND_SERVICE
+    - SETFCAP
+    - SETGID
+    - SETPCAP
+    - SETUID
+    - SYS_CHROOT
+    # requiredDropCapabilities:
+    # - ALL
