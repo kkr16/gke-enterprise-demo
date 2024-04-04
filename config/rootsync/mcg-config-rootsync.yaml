@@ -1,16 +1,16 @@
-apiVersion: configsync.gke.io/v1beta1
-kind: RootSync
-metadata:
-  name: mcgateway-root
-  namespace: config-management-system
-  annotations:
-    configsync.gke.io/cluster-name-selector: montreal #todo: make this a var
-spec:
-  sourceType: git
-  sourceFormat: unstructured
-  git:
-    repo: https://github.com/kkr16/gke-enterprise-demo.git
-    branch: main
-    dir: config/multiclusterconfig/root
-    auth: none
-    period: 30s
+# apiVersion: configsync.gke.io/v1beta1
+# kind: RootSync
+# metadata:
+#   name: mcgateway-root
+#   namespace: config-management-system
+#   annotations:
+#     configsync.gke.io/cluster-name-selector: montreal #todo: make this a var
+# spec:
+#   sourceType: git
+#   sourceFormat: unstructured
+#   git:
+#     repo: https://github.com/kkr16/gke-enterprise-demo.git
+#     branch: main
+#     dir: config/multiclusterconfig/root
+#     auth: none
+#     period: 30s
