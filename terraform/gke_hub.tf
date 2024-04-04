@@ -14,7 +14,6 @@ resource "google_gke_hub_fleet" "default" {
 resource "google_gke_hub_membership" "membership" {
   for_each      = google_container_cluster.cluster
   membership_id = each.value.name
-  location      = "global"
   endpoint {
     gke_cluster {
       resource_link = "//container.googleapis.com/${google_container_cluster.cluster[each.key].id}"
