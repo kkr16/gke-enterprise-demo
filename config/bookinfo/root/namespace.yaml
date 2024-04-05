@@ -5,3 +5,11 @@ metadata:
   labels:
     istio-injection: enabled
     shared-gateway-access: "true"
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: bookinfo-2
+  labels:
+    istio-injection: enabled
+    shared-gateway-access: "true"
